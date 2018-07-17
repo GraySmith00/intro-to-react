@@ -1,29 +1,38 @@
 import React, { Component } from 'react';
 import './App.css';
-import GroceryListItem from './GroceryListItem';
-
-const items = [
-  { name: 'Peppers', count: 2 },
-  { name: 'Onion', count: 1 },
-  { name: 'Tortilla', count: 12 },
-  { name: 'Cheese', count: 3 },
-  { name: 'Lime', count: 5 }
-];
+import Greeting from './Greeting';
+import Login from './Login';
+import EvilCounter from './EvilCounter';
+import TodoList from './TodoList';
 
 class App extends Component {
+  constructor() {
+    super();
+    this.state = {
+      userName: ''
+    };
+  }
+
+  setName = name => {
+    this.setState({ userName: name });
+  };
+
   render() {
+    if (this.state.userName) {
+      return (
+        <div className="App">
+          <h1>Evil Deeds</h1>
+          <Greeting userName={this.state.userName} />
+          <EvilCounter />
+          <TodoList />
+        </div>
+      );
+    }
+
     return (
       <div className="App">
-        <h1>Grocery List</h1>
-        {items.map((item, i) => {
-          return (
-            <GroceryListItem
-              name={item.name}
-              key={`items-${i}`}
-              count={item.count}
-            />
-          );
-        })}
+        <h1>Evil Deeds</h1>
+        <Login setName={this.setName} />
       </div>
     );
   }
